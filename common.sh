@@ -43,7 +43,7 @@ NODEJS () {
   StatusCheck $?
 
   echo Setup systemD service file
-  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' 's/MONGO_ENDPOINT/mongodb.roboshop.internal' /home/roboshop/${COMPONENT}/systemd.service
+  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
   StatusCheck $?
 
   echo setup ${COMPONENT} service
