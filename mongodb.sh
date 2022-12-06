@@ -51,6 +51,7 @@ else
   exit 1
 fi
 
+rm -rf mongodb*
 echo Downloading Schema
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>LOG_FILE
 StatusCheck=$?
@@ -63,7 +64,6 @@ fi
 
 echo unzipping schema files in tmp folder
 cd /tmp
-rm -rf mongodb*
 unzip mongodb.zip &>>LOG_FILE
 StatusCheck=$?
 if [ $? = 0 ]; then
