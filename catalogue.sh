@@ -20,7 +20,7 @@ StatusCheck $?
 echo unzip the files in tmp folder
 cd /home/roboshop
 unzip -o /tmp/catalogue.zip
-mv catalogue-main catalogue
+mv -o catalogue-main catalogue
 StatusCheck $?
 
 echo Install NodeJs depedencies
