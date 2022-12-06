@@ -1,7 +1,7 @@
 LOG_FILE=/tmp/frontend
 echo Installing Nginx
 yum install nginx -y &>>$LOG_FILE
-StatusCheck $?
+StatusCheck=$?
 if [ $? = 0 ]; then
   echo status = success
 else
@@ -12,7 +12,7 @@ fi
 echo starting and enabling nginx
 systemctl enable nginx &>> $LOG_FILE
 systemctl start nginx &>>$LOG_FILE
-StatusCheck=$?
+StatusCheck $?
 if [ $? = 0 ]; then
   echo status = success
 else
@@ -22,7 +22,7 @@ fi
 
 echo downloading repo file
 curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$LOG_FILE
-StatusCheck $?
+StatusCheck= $?
 if [ $? = 0 ]; then
   echo status =success
 else
