@@ -29,6 +29,10 @@ cd /home/roboshop/catalogue &>>LOG_FILE
 npm install &>>LOG_FILE
 StatusCheck $?
 
+echo Setup systemD service file
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' /home/roboshop/catalogue/systemd.service
+StatusCheck $?
+
 echo setup catalogue service
 cd /home/roboshop
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>LOG_FILE
