@@ -63,6 +63,7 @@ fi
 
 echo unzipping schema files in tmp folder
 cd /tmp
+rm -rf mongodb*
 unzip mongodb.zip &>>LOG_FILE
 StatusCheck=$?
 if [ $? = 0 ]; then
