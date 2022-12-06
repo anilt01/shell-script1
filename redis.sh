@@ -1,11 +1,11 @@
 LOG_FILE=/tmp/redis
-source=common.sh
+source common.sh
 
 echo install redis repo files
 dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>LOG_FILE
 StatusCheck $?
 
-echo enabke redis module
+echo enable redis module
 dnf module enable redis:remi-6.2 -y &>>LOG_FILE
 StatusCheck $?
 
