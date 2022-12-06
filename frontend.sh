@@ -12,7 +12,7 @@ fi
 echo starting and enabling nginx
 systemctl enable nginx &>> $LOG_FILE
 systemctl start nginx &>>$LOG_FILE
-StatusCheck $?
+StatusCheck=$?
 if [ $? = 0 ]; then
   echo status = success
 else
