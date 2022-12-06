@@ -20,8 +20,8 @@ StatusCheck $?
 echo unzip the files in tmp folder
 cd /home/roboshop
 rm -rf catalogue
-unzip /tmp/catalogue.zip
-mv catalogue-main catalogue
+unzip /tmp/catalogue.zip &>>LOG_FILE
+mv catalogue-main catalogue &>>LOG_FILE
 StatusCheck $?
 
 echo Install NodeJs depedencies
