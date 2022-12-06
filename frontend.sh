@@ -29,3 +29,4 @@ echo restarting nginx
 systemctl restart nginx &>>$LOG_FILE
 StatusCheck $?
 
+
