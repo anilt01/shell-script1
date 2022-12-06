@@ -28,6 +28,8 @@ npm install &>>LOG_FILE
 StatusCheck $?
 
 echo setup catalogue service
+cd /home/roboshop
+rm -rf catalogue
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>LOG_FILE
 StatusCheck $?
 
