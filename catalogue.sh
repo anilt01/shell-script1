@@ -19,8 +19,9 @@ StatusCheck $?
 
 echo unzip the files in tmp folder
 cd /home/roboshop
-unzip -o /tmp/catalogue.zip
-mv -o catalogue-main catalogue
+rm -rf catalogue
+unzip /tmp/catalogue.zip
+mv catalogue-main catalogue
 StatusCheck $?
 
 echo Install NodeJs depedencies
@@ -30,7 +31,6 @@ StatusCheck $?
 
 echo setup catalogue service
 cd /home/roboshop
-rm -rf catalogue
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>LOG_FILE
 StatusCheck $?
 
