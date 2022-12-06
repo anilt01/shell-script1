@@ -14,7 +14,7 @@ systemctl enable mongod &>>LOG_FILE
 systemctl start mongod &>>LOG_FILE
 StatusCheck $?
 
-echo updating ip address in
+echo updating Listen address
 sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>LOG_FILE
 StatusCheck $?
 
