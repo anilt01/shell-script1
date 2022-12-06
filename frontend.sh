@@ -29,7 +29,6 @@ else
   echo status=failure
   exit 1
 fi
-
 echo clearup all the content
 cd /usr/share/nginx/html &>>$LOG_FILE
 rm -rf * &>> $LOG_FILE
