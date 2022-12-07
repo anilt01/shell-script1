@@ -13,11 +13,9 @@ StatusCheck () {
   fi
 }
 
-NODEJS () {
-  echo download and Install NodeJs repos
-  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>LOG_FILE
-  yum install nodejs -y &>>LOG_FILE
-  StatusCheck $?
+
+
+APP_PREREQ () {
 
   echo add an application user
   id roboshop &>>LOG_FILE
@@ -36,14 +34,12 @@ NODEJS () {
   unzip /tmp/${COMPONENT}.zip &>>LOG_FILE
   mv ${COMPONENT}-main ${COMPONENT} &>>LOG_FILE
   StatusCheck $?
+}
 
-  echo Install NodeJs depedencies
-  cd /home/roboshop/${COMPONENT} &>>LOG_FILE
-  npm install &>>LOG_FILE
-  StatusCheck $?
 
+SYSTEMD_SETUP () {
   echo Setup systemD service file
-  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
+  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/g' -e 's/CARTENDPOINT/cart.roboshop.internal/g' -e 's/DBHOST/mysql.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
   StatusCheck $?
 
   echo setup ${COMPONENT} service
@@ -59,4 +55,36 @@ NODEJS () {
   systemctl start ${COMPONENT} &>>LOG_FILE
   systemctl enable ${COMPONENT} &>>LOG_FILE
   StatusCheck $?
+}
+
+
+NODEJS () {
+  echo download and Install NodeJs repos
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>LOG_FILE
+  yum install nodejs -y &>>LOG_FILE
+  StatusCheck $?
+
+  APP_PREREQ
+
+  echo Install NodeJs depedencies
+  cd /home/roboshop/${COMPONENT} &>>LOG_FILE
+  npm install &>>LOG_FILE
+  StatusCheck $?
+
+  SYSTEMD_SETUP
+}
+
+MAVEN () {
+  echo "Install Maven"
+  yum install maven -y &>>LOG_FILE
+  StatusCheck $?
+
+  APP_PREREQ
+
+  echo " clean the package"
+  mvn clean package &>>LOG_FILE
+  mv target/shipping-1.0.jar shipping.jar &>>LOG_FILE
+  StatusCheck $?
+
+  SYSTEMD_SETUP
 }
