@@ -107,4 +107,6 @@ PYTHON() {
   uid=$(id -u roboshop)
   gid=$(id -g roboshop)
 
+  echo ${uid}
+
 }

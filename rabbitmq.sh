@@ -6,13 +6,13 @@ curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/sc
 StatusCheck $?
 
 echo Install erlang and Rabbitmq
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$LOG_FILE
 StatusCheck $?
 
-yum install erlang -y
+yum install erlang -y &>>$LOG_FILE
 StatusCheck $?
 
-yum install rabbitmq-server -y
+yum install rabbitmq-server -y &>>$LOG_FILE
 StatusCheck $?
 
 echo "enable and start rabbitmq"
