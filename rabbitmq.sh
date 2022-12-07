@@ -10,8 +10,8 @@ yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erl
 StatusCheck $?
 
 echo "enable and start rabbitmq"
-systemctl enable rabbitmq-server &>>$LOG_FILE
-systemctl start rabbitmq-server &>>$LOG_FILE
+systemctl enable rabbitmq-server
+systemctl start rabbitmq-server
 StatusCheck $?
 
 rabbitmqctl list_users | grep roboshop &>>$LOG_FILE
