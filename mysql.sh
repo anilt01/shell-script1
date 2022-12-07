@@ -27,6 +27,8 @@ FLUSH PRIVILEGES;" >/tmp/root-pass.sql
 
 echo change mysql root password
 echo "show databases;" |mysql -uroot -p${ROBOSHOP_MYSQl_PASSWORD} &>>$LOG_FILE
+StatusCheck $?
+echo "Change pass"
 if [ $? -ne 0 ]; then
  mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>$LOG_FILE
  StatusCheck $?
