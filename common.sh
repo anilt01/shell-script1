@@ -83,7 +83,9 @@ MAVEN () {
 
   echo " clean the package"
   mvn clean package &>>LOG_FILE
-  mv target/shipping-1.0.jar shipping.jar &>>LOG_FILE
+  StatusCheck $?
+  echo "move shipping jar file"
+  mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar &>>LOG_FILE
   StatusCheck $?
 
   SYSTEMD_SETUP
