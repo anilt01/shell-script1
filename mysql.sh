@@ -23,34 +23,3 @@ DEFAULT_PASSWORD=$( grep 'A temporary password' /var/log/mysqld.log | awk '{prin
 # As we need to use the secure installation manually we are using different command to login mysql
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${ROBOSHOP_MYSQL_PASSWORD}');
 FLUSH PRIVILEGES;" >/tmp/root-pass.sql
-
-
-echo change mysql root password
-echo "show databases;" |mysql -uroot -p${ROBOSHOP_MYSQl_PASSWORD} &>>$LOG_FILE
-StatusCheck $?
-echo "Change pass"
-if [ $? -ne 0 ]; then
- mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>$LOG_FILE
- StatusCheck $?
-fi
-
-echo 'show plugins' | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} | grep validate_password &>>$LOG_FILE
-if [ $? -eq 0 ]; then
- echo "uninstall password validation plugins"
- echo "uninstall plugin validate_password;" | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} &>>$LOG_FILE
- StatusCheck $?
-fi
-
-echo Download Schema files
-curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>$LOG_FILE
-StatusCheck $?
-
-echo unzip schema files
-cd /tmp
-unzip -o mysql.zip &>>$LOG_FILE
-StatusCheck $?
-
-echo load schema files
-cd mysql-main
-mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} <shipping.sql &>>$LOG_FILE
-StatusCheck $?
