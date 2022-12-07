@@ -9,6 +9,10 @@ echo Install erlang and Rabbitmq
 yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm -y &>>$LOG_FILE
 StatusCheck $?
 
+echo Install rabbitmq
+yum install rabbitmq-server -y
+StatusCheck $?
+
 echo "enable and start rabbitmq"
 systemctl enable rabbitmq-server
 systemctl start rabbitmq-server
