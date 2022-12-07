@@ -35,8 +35,8 @@ echo "show plugins" | mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD} | grep validat
 if [ $? -eq 0 ] then;
  echo uninstall passowrd validation plugins
  echo "uninstall plugin validate_password;" | mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD} &>>LOG_FILE
+fi
  StatusCheck $?
- fi
 
 echo Download Schema files
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>LOG_FILE
