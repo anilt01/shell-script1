@@ -23,3 +23,9 @@ DEFAULT_PASSWORD=$( grep 'A temporary password' /var/log/mysqld.log | awk '{prin
 # As we need to use the secure installation manually we are using different command to login mysql
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${ROBOSHOP_MYSQL_PASSWORD}');
 FLUSH PRIVILEGES;" >/tmp/root-pass.sql
+
+echo "Change pass"
+if [ $? -ne 0 ]; then
+ mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>$LOG_FILE
+ StatusCheck $?
+fi
