@@ -6,7 +6,7 @@ curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.
 StatusCheck $?
 
 echo "Install erlang"
-yum install erlang -y &>>$LOG_FILE
+yum install erlang
 StatusCheck $?
 
 echo "Download rabbitmq repos"
