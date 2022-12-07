@@ -29,14 +29,14 @@ echo "show databases;" |mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD}
 if [ $? -ne 0 ]; then
  mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql
  StatusCheck $?
-fi
+ fi
 
 echo "show plugins" | mysql -uroot -p'{$ROBOSHOP_DEFAULT_PASSWORD}' | grep validate_password &>>LOG_FILE
 if [ $? -eq 0 ] then;
  echo uninstall passowrd validation plugins
  echo "uninstall plugin validate_password;" | mysql -uroot -p'{$ROBOSHOP_DEFAULT_PASSWORD}' &>>LOG_FILE
  StatusCheck $?
-fi
+ fi
 
 echo Download Schema files
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>LOG_FILE
