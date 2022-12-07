@@ -2,7 +2,7 @@ source common.sh
 LOG_FILE=/tmp/rabbitmq
 
 echo Download rabbitmq repos
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash &>>$LOG_FILE
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOG_FILE
 StatusCheck $?
 
 echo Install erlang and Rabbitmq
