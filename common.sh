@@ -83,7 +83,7 @@ MAVEN() {
 
   cd /home/roboshop/${COMPONENT}
   echo " clean the package"
-  mvn clean package
+  mvn clean package &>>LOG_FILE
   StatusCheck $?
   echo "move shipping jar file"
   mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar &>>LOG_FILE
@@ -92,3 +92,19 @@ MAVEN() {
   SYSTEMD_SETUP
 }
 
+PYTHON() {
+  echo "Install python"
+  yum install python36 gcc python3-devel -y
+  StatusCheck $?
+
+  APP_PREREQ
+
+  echo " Install python dependencies"
+  cd /home/roboshop/${COMPONENT}
+  pip3 install -r requirements.txt
+  StatusCheck $?
+
+  uid=$(id -u roboshop)
+  gid=$(id -g roboshop)
+
+}
