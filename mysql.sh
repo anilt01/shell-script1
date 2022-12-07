@@ -25,16 +25,16 @@ FLUSH PRIVILEGES;" >/tmp/root-pass.sql &>>LOG_FILE
 
 
 echo change mysql root password
-echo "show databases;" |mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD}
+echo "show databases;" |mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD} &>>LOG_FILE
 if [ $? -ne 0 ]; then
- mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql
+ mysql -uroot --connect-expired-password -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>LOG_FILE
  StatusCheck $?
  fi
 
-echo "show plugins" | mysql -uroot -p'{$ROBOSHOP_DEFAULT_PASSWORD}' | grep validate_password &>>LOG_FILE
+echo "show plugins" | mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD} | grep validate_password &>>LOG_FILE
 if [ $? -eq 0 ] then;
  echo uninstall passowrd validation plugins
- echo "uninstall plugin validate_password;" | mysql -uroot -p'{$ROBOSHOP_DEFAULT_PASSWORD}' &>>LOG_FILE
+ echo "uninstall plugin validate_password;" | mysql -uroot -p${ROBOSHOP_DEFAULT_PASSWORD} &>>LOG_FILE
  StatusCheck $?
  fi
 
