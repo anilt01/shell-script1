@@ -1,4 +1,4 @@
 LOG_FILE=/tmp/shipping
-source=common.sh
+source common.sh
 COMPONENT=cart
 MAVEN
