@@ -8,7 +8,7 @@ LOG_FILE=/tmp/rabbitmq
 
 
 echo "Download erlang dependencies for rabbitmq"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash &>>$LOG_FILE
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$LOG_FILE
 StatusCheck $?
 
 #echo "Install erlang"
