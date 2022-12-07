@@ -94,14 +94,14 @@ MAVEN() {
 
 PYTHON() {
   echo "Install python"
-  yum install python36 gcc python3-devel -y
+  yum install python36 gcc python3-devel -y &>>$LOG_FILE
   StatusCheck $?
 
   APP_PREREQ
 
   echo " Install python dependencies"
   cd /home/roboshop/${COMPONENT}
-  pip3 install -r requirements.txt
+  pip3 install -r requirements.txt &>>$LOG_FILE
   StatusCheck $?
 
   uid=$(id -u roboshop)
