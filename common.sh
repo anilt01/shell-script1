@@ -15,7 +15,7 @@ StatusCheck () {
 
 
 
-APP_PREREQ () {
+APP_PREREQ() {
 
   echo add an application user
   id roboshop &>>LOG_FILE
@@ -37,7 +37,7 @@ APP_PREREQ () {
 }
 
 
-SYSTEMD_SETUP () {
+SYSTEMD_SETUP() {
   echo Setup systemD service file
   sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.intenal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/g' -e 's/CARTENDPOINT/cart.roboshop.internal/g' -e 's/DBHOST/mysql.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
   StatusCheck $?
@@ -58,7 +58,7 @@ SYSTEMD_SETUP () {
 }
 
 
-NODEJS () {
+NODEJS() {
   echo download and Install NodeJs repos
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>LOG_FILE
   yum install nodejs -y &>>LOG_FILE
@@ -74,13 +74,14 @@ NODEJS () {
   SYSTEMD_SETUP
 }
 
-MAVEN () {
+MAVEN() {
   echo "Install Maven"
   yum install maven -y &>>LOG_FILE
   StatusCheck $?
 
   APP_PREREQ
 
+  cd /home/roboshop/${COMPONENT}
   echo " clean the package"
   mvn clean package
   StatusCheck $?
