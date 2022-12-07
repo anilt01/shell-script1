@@ -82,7 +82,7 @@ MAVEN () {
   APP_PREREQ
 
   echo " clean the package"
-  mvn clean package &>>LOG_FILE
+  mvn clean package
   StatusCheck $?
   echo "move shipping jar file"
   mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar &>>LOG_FILE
