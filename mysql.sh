@@ -24,7 +24,7 @@ echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${ROBOSHOP_MYSQL_PASSWORD}
 FLUSH PRIVILEGES;" >/tmp/root-pass.sql
 
 echo change mysql root password
-mysql -uroot -p"$DEFAULT_PASSWORD" </tmp/root-pass.sql
+mysql -uroot --connect-expired-password -p"$DEFAULT_PASSWORD" </tmp/root-pass.sql
 
 
 
