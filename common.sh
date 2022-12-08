@@ -75,6 +75,7 @@ NODEJS() {
 }
 
 MAVEN() {
+  #maven installs java
   echo "Install Maven"
   yum install maven -y &>>LOG_FILE
   StatusCheck $?
@@ -112,3 +113,27 @@ PYTHON() {
   SYSTEMD_SETUP
 }
 
+GOLANG() {
+
+  echo "Install Golang package"
+  yum install golang -y &>>$LOG_FILE
+  StatusCheck $?
+
+  APP_PREREQ
+
+  cd /home/roboshop/${COMPONENT}
+
+  echo "Track code dependencies by creating a go.mod file"
+  go mod init ${COMPONENT} &>>$LOG_FILE
+  StatusCheck $?
+
+  echo "Install dependencies"
+  go get &>>$LOG_FILE
+  StatusCheck $?
+
+  echo " build the command"
+  go build &>>$LOG_FILE
+  StatusCheck $?
+
+
+}
