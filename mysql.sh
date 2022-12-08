@@ -3,6 +3,7 @@ source common.sh
 
 if [ -z "${ROBOSHOP_MYSQL_PASSWORD}" ]; then
   echo -e "\e[31m ROBOSHOP_MYSQL_PASSWORD env variable is needed\e[0m"
+  echo "execute bash with -E to consider env variable"
   exit 1
 fi
 
