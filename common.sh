@@ -40,7 +40,7 @@ APP_PREREQ() {
 
 SYSTEMD_SETUP() {
   echo Setup systemD service file
-  sed -i  -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/g' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/g' -e 's/CARTENDPOINT/cart.roboshop.internal/g' -e 's/DBHOST/mysql.roboshop.internal/g' -e 's/CARTHOST/cart.roboshop.internal/g' -e 's/USERHOST/user.roboshop.internal/g' -e 's/AMQPHOST /rabbitmq.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
+  sed -i  -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/g' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/g' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/g' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/g' -e 's/CARTENDPOINT/cart.roboshop.internal/g' -e 's/DBHOST/mysql.roboshop.internal/g' -e 's/CARTHOST/cart.roboshop.internal/g' -e 's/USERHOST/user.roboshop.internal/g' -e 's/AMQPHOST/rabbitmq.roboshop.internal/g' /home/roboshop/${COMPONENT}/systemd.service
   StatusCheck $?
 
   echo setup ${COMPONENT} service
