@@ -21,14 +21,17 @@ echo Restarting Mongodb
 systemctl restart mongod
 StatusCheck $?
 
+echo clear previous files
+cd /home/roboshop/tmp
+rm -rf mongodb*
+StatusCheck $?
+
 echo "Download Schema files"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 StatusCheck $?
 
-echo clear previous files
-cd /tmp && rm -rf mongodb*
-StatusCheck $?
 
+cd /tmp
 echo Unzipping the files
 unzip mongodb.zip
 StatusCheck $?
