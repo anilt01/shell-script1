@@ -1,39 +1,40 @@
 LOG_FILE=/tmp/mongodb
 source common.sh
 
-echo Downloading Mongodb repos
-curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo &>>LOG_FILE
+echo Downloading repos
+curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo
 StatusCheck $?
 
-echo Installing Mongodb-org
-yum install -y mongodb-org &>>LOG_FILE
+echo Installing Mongodb
+yum install -y mongodb-org
 StatusCheck $?
 
-echo Enabling and starting mongod
-systemctl enable mongod &>>LOG_FILE
-systemctl start mongod &>>LOG_FILE
+echo Updating Listen Adress
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 StatusCheck $?
 
-echo updating Listen address
-sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>LOG_FILE
+echo enabling Mongodb
+systemctl enable mongod
 StatusCheck $?
 
-echo restarting mongodb
-systemctl restart mongod &>>LOG_FILE
-StatusCheck=$?
+echo Restarting Mongodb
+systemctl restart mongod
 StatusCheck $?
 
-echo Downloading Schema
-curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>LOG_FILE
+echo "Download Schema files"
+curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 StatusCheck $?
 
-echo unzipping schema files in tmp folder
-cd /tmp
-unzip -o mongodb.zip &>>LOG_FILE
+echo clear previous files
+cd /tmp && rm -rf mongodb*
 StatusCheck $?
 
-echo Uploading catalogue and users schema
+echo Unzipping the files
+unzip mongodb.zip
+StatusCheck $?
+
+echo Loading catalogue and users schema
 cd mongodb-main
-mongo < catalogue.js &>>LOG_FILE
-mongo < users.js &>>LOG_FILE
+mongo < catalogue.js
+mongo < users.js
 StatusCheck $?
