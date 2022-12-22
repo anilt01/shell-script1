@@ -22,7 +22,7 @@ systemctl restart mongod &>>$LOG_FILE
 StatusCheck $?
 
 echo clear previous files
-cd /home/roboshop
+cd /tmp
 rm -rf mongodb* &>>$LOG_FILE
 StatusCheck $?
 
